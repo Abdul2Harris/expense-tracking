@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💸 Expense Tracker
 
-## Getting Started
+A simple full-stack expense tracking application built with Next.js, Prisma, and Ant Design.
+Users can add, view, and manage daily expenses with proper backend persistence and idempotent API handling.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+
+* ➕ Add new expenses (amount, category, date, description)
+* 📊 View all expenses in a structured table
+* 🔢 Automatic total calculation
+* 🏷️ Category-based grouping
+* 📅 Sort expenses by date (newest first)
+* ❌ Delete expenses
+* 🔁 Idempotent API handling (prevents duplicate submissions)
+* 🚫 Validation for invalid inputs (e.g., negative amounts)
+
+---
+
+## 🧱 Tech Stack
+
+### Frontend
+
+* Next.js (App Router)
+* React
+* Ant Design (UI components)
+* Day.js (date handling)
+
+### Backend
+
+* Next.js Route Handlers (API routes)
+* Prisma ORM
+
+### Database
+
+* PostgreSQL (or your DB, update if needed)
+
+---
+
+## 🧠 Key Concepts Implemented
+
+### 1. Idempotent API Design
+
+* Each request includes a `requestId`
+* Backend enforces uniqueness using a database constraint
+* Duplicate requests return existing data instead of creating new records
+
+### 2. Proper Data Handling
+
+* Prisma `Decimal` converted to number before sending to frontend
+* Dates stored as `DateTime` and formatted in UI
+* Clear separation between:
+
+  * Input data (form)
+  * Database entity (backend response)
+
+### 3. Clean State Management
+
+* Data fetched from backend using `fetch`
+* UI updated using server response as source of truth
+
+### 4. Validation & UX
+
+* Prevent negative amounts
+* Loading states for better user experience
+* Form reset after submission
+
+---
+
+## 📂 Project Structure
+
+```
+/app
+  /api/expenses        # API routes
+/components            # Reusable UI components
+/constants             # Static data (categories)
+/types                 # TypeScript types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔌 API Endpoints
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### POST /api/expenses
 
-## Learn More
+Create a new expense
 
-To learn more about Next.js, take a look at the following resources:
+**Request Body:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+{
+  amount: number,
+  category: string,
+  description?: string,
+  date: string,
+  requestId: string
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### GET /api/expenses
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Fetch all expenses
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### DELETE /api/expenses/:id
+
+Delete an expense
+
+---
+
+## ⚙️ Setup Instructions
+
+1. Clone the repository
+
+```
+git clone <your-repo-url>
+cd expense-tracker
+```
+
+2. Install dependencies
+
+```
+npm install
+```
+
+3. Setup environment variables
+
+```
+DATABASE_URL=your_database_url
+```
+
+4. Run Prisma migrations
+
+```
+npx prisma migrate dev
+```
+
+5. Start development server
+
+```
+npm run dev
+```
+
+---
+
+## 💡 Future Improvements
+
+* Filtering by date (weekly/monthly)
+* Category-wise charts
+* Pagination for large datasets
+* Authentication & user-specific data
+
+---
+
+## ✅ Notes
+
+* Sorting is based on **expense date**, not creation time
+* Backend ensures **data consistency and idempotency**
+* UI is kept simple and responsive using Ant Design
+
+---
+
+## 👨‍💻 Author
+
+Built as part of a technical assignment to demonstrate full-stack development skills.
