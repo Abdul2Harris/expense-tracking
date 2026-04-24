@@ -106,12 +106,6 @@ Fetch all expenses
 
 ---
 
-### DELETE /api/expenses/:id
-
-Delete an expense
-
----
-
 ## ⚙️ Setup Instructions
 
 1. Clone the repository
@@ -144,15 +138,6 @@ npx prisma migrate dev
 ```
 npm run dev
 ```
-
----
-
-## 💡 Future Improvements
-
-* Filtering by date (weekly/monthly)
-* Category-wise charts
-* Pagination for large datasets
-* Authentication & user-specific data
 
 ---
 

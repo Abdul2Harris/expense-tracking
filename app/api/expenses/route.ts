@@ -5,7 +5,7 @@ export async function POST(request: Request) {
   const { requestId, amount, category, description, date } =
     await request.json();
 
-    console.log({ requestId, amount, category, description, date });
+  console.log({ requestId, amount, category, description, date });
 
   if (!requestId) {
     return Response.json({ error: "requestId is required" }, { status: 400 });
@@ -29,8 +29,11 @@ export async function POST(request: Request) {
       },
       { status: 201 },
     );
-  } catch (error: any) {
-    if (error.code === "P2002") {
+  } catch (error: unknown) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
       const existing = await prisma.expense.findUnique({
         where: { requestId },
       });
