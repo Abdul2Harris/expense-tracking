@@ -1,19 +1,19 @@
 # 💸 Expense Tracker
 
-A simple full-stack expense tracking application built with Next.js, Prisma, and Ant Design.
-Users can add, view, and manage daily expenses with proper backend persistence and idempotent API handling.
+A full-stack expense tracking application built using Next.js, Prisma, and Ant Design.
+Users can add, view, and manage expenses with proper backend persistence and idempotent API handling.
 
 ---
 
 ## 🚀 Features
 
 * ➕ Add new expenses (amount, category, date, description)
-* 📊 View all expenses in a structured table
-* 🔢 Automatic total calculation
-* 🏷️ Category-based grouping
-* 📅 Sort expenses by date (newest first)
+* 📊 View expenses in a table
+* 🔢 Total expense calculation
+* 📅 Sort by date (newest first)
+* 🏷️ Category tracking
 * ❌ Delete expenses
-* 🔁 Idempotent API handling (prevents duplicate submissions)
+* 🔁 Idempotent API (prevents duplicate submissions)
 * 🚫 Validation for invalid inputs (e.g., negative amounts)
 
 ---
@@ -24,58 +24,59 @@ Users can add, view, and manage daily expenses with proper backend persistence a
 
 * Next.js (App Router)
 * React
-* Ant Design (UI components)
-* Day.js (date handling)
+* Ant Design
+* Day.js
+* Tailwind CSS
 
 ### Backend
 
-* Next.js Route Handlers (API routes)
+* Next.js Route Handlers
 * Prisma ORM
 
 ### Database
 
-* PostgreSQL (or your DB, update if needed)
-
----
-
-## 🧠 Key Concepts Implemented
-
-### 1. Idempotent API Design
-
-* Each request includes a `requestId`
-* Backend enforces uniqueness using a database constraint
-* Duplicate requests return existing data instead of creating new records
-
-### 2. Proper Data Handling
-
-* Prisma `Decimal` converted to number before sending to frontend
-* Dates stored as `DateTime` and formatted in UI
-* Clear separation between:
-
-  * Input data (form)
-  * Database entity (backend response)
-
-### 3. Clean State Management
-
-* Data fetched from backend using `fetch`
-* UI updated using server response as source of truth
-
-### 4. Validation & UX
-
-* Prevent negative amounts
-* Loading states for better user experience
-* Form reset after submission
+* PostgreSQL (or configured DB)
 
 ---
 
 ## 📂 Project Structure
 
-```
-/app
-  /api/expenses        # API routes
-/components            # Reusable UI components
-/constants             # Static data (categories)
-/types                 # TypeScript types
+```id="structure"
+app/
+  api/expenses/route.ts   # API routes (GET, POST)
+  globals.css
+  layout.tsx
+  page.tsx
+
+components/
+  AddExpenseForm.tsx
+  ExpenseTable.tsx
+
+constants/
+  constants.ts
+
+lib/
+  prisma.ts
+
+prisma/
+  schema.prisma
+
+types/
+  types.ts
+
+# Root config files
+.env
+.env.example
+.eslintrc.json
+.gitignore
+next-env.d.ts
+next.config.mjs
+package.json
+package-lock.json
+postcss.config.mjs
+tailwind.config.ts
+tsconfig.json
+README.md
 ```
 
 ---
@@ -86,17 +87,18 @@ Users can add, view, and manage daily expenses with proper backend persistence a
 
 Create a new expense
 
-**Request Body:**
-
-```
+```id="post"
 {
-  amount: number,
-  category: string,
-  description?: string,
-  date: string,
-  requestId: string
+  "amount": number,
+  "category": string,
+  "description": string,
+  "date": string,
+  "requestId": string
 }
 ```
+
+* Uses `requestId` to ensure idempotency
+* Prevents duplicate entries on retries
 
 ---
 
@@ -104,48 +106,81 @@ Create a new expense
 
 Fetch all expenses
 
+* Converts Prisma `Decimal` → number before sending response
+
+---
+
+## 🧠 Key Implementations
+
+### ✅ Idempotency Handling
+
+* Unique `requestId` per request
+* Enforced via database constraint
+* Duplicate requests return existing data
+
+---
+
+### ✅ Data Handling
+
+* Prisma `Decimal` → converted to number
+* Dates stored as `DateTime` and formatted in UI
+* Separation of:
+
+  * Form input
+  * API response
+  * Database model
+
+---
+
+### ✅ UI/UX Improvements
+
+* Loading states using Ant Design
+* Form validation (no negative values)
+* Clean and responsive UI
+
 ---
 
 ## ⚙️ Setup Instructions
 
 1. Clone the repository
 
-```
+```id="clone"
 git clone <your-repo-url>
 cd expense-tracker
 ```
 
 2. Install dependencies
 
-```
+```id="install"
 npm install
 ```
 
 3. Setup environment variables
 
-```
+```id="env"
 DATABASE_URL=your_database_url
 ```
 
 4. Run Prisma migrations
 
-```
+```id="migrate"
 npx prisma migrate dev
 ```
 
-5. Start development server
+5. Start the development server
 
-```
+```id="run"
 npm run dev
 ```
 
 ---
 
-## ✅ Notes
+## 💡 Future Improvements
 
-* Sorting is based on **expense date**, not creation time
-* Backend ensures **data consistency and idempotency**
-* UI is kept simple and responsive using Ant Design
+* Date filters (weekly/monthly)
+* Category-wise charts
+* Pagination for large datasets
+* Authentication
 
 ---
 
