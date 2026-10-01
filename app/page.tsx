@@ -81,7 +81,7 @@ export default function ExpensesPage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-xl font-semibold text-text1 tracking-tight">
-              Expense Tracker App
+              Expense Tracker App with all feautres
             </h1>
           </div>
         </div>
