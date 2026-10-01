@@ -81,7 +81,7 @@ export default function ExpensesPage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-xl font-semibold text-text1 tracking-tight">
-              Expense Tracker
+              Expense Tracker App
             </h1>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function ExpensesPage() {
             <div className="flex items-center gap-2 mb-2">
               <Hash size={14} className="text-text3" />
               <span className="text-xs text-text3 uppercase tracking-widest font-medium">
-                No. of entries
+                No. of entries 
               </span>
             </div>
             <p className="text-[22px] font-semibold text-green leading-none">
