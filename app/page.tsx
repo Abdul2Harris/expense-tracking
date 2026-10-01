@@ -93,7 +93,7 @@ export default function ExpensesPage() {
             <div className="flex items-center gap-2 mb-2">
               <Wallet size={14} className="text-text3" />
               <span className="text-xs text-text3 uppercase tracking-widest font-medium">
-                Total Amount
+                Total Amount in Rupees
               </span>
             </div>
             <p className="text-[22px] font-semibold text-text1 font-mono leading-none">
@@ -106,7 +106,7 @@ export default function ExpensesPage() {
             <div className="flex items-center gap-2 mb-2">
               <TrendingUp size={14} className="text-text3" />
               <span className="text-xs text-text3 uppercase tracking-widest font-medium">
-                Highest category
+                Highest category 
               </span>
             </div>
             <p className="text-[22px] font-semibold text-amber leading-none">
